@@ -1,0 +1,50 @@
+---
+title: "rmarkdown"
+output:
+  html_document: default
+  html_notebook:default: default
+---
+```{r}
+library(tidyverse)
+library(dplyr)
+library(nycflights13)
+flights
+###主要与group_by连用
+
+dplyr <- group_by(flights,year,month,day)
+summarize(dplyr,delay=mean(dep_delay,na.rm = T))
+###计数
+not <- flights %>% filter(!is.na(dep_delay),!is.na(arr_delay))
+
+delyr <- not %>% group_by(tailnum) %>% summarize(delyr=mean(arr_delay),
+                                                 n=n())
+ ggplot(delyr,mapping = aes(x=n,y=delyr))+geom_point(alpha=0.3)
+ ####tibble
+iris
+
+
+tt <- as_tibble(iris)
+##取子集
+tt[[1]]
+tt$Sepal.Length
+tt %>% .[["Sepal.Length"]]
+
+mtcars
+
+model <- lm(mpg~wt,data = mtcars)
+summary(model)
+####map输出的是列表
+model <- mtcars %>% split(.$cyl) %>% map(function(df)lm(mpg~wt,data = df))
+
+rnorm(5)
+
+```
+##################################################
+#############################
+```{r}
+
+```
+
+
+
+
